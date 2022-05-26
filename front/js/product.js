@@ -25,12 +25,70 @@ request.onload = function showProductInfos () {
       const imgContainer = document.createElement('div')
       imgContainer.setAttribute('class', 'item__img')
       cards.appendChild(imgContainer)
+        const productImg = document.createElement('img')
+        productImg.src = data.imageUrl
+        imgContainer.appendChild(productImg)
 
-      const productImg = document.createElement('img');
-      productImg.src = data.imageUrl
-      imgContainer.appendChild(productImg)
+      //Inside item__content class
+      const itemContainer = document.createElement('div')
+      itemContainer.setAttribute('class', 'item__content')
+      cards.appendChild(itemContainer)
 
+      const titlePrice = document.createElement('div')
+      titlePrice.setAttribute('class', 'item__content__titlePrice')
+      itemContainer.appendChild(titlePrice)
+        const title = document.createElement('h1')
+        title.setAttribute('id', 'title')
+        title.textContent = data.name
+        titlePrice.appendChild(title)
+        const price = document.createElement('p')
+        price.textContent= 'Prix : ' + data.price + ' €'
+        titlePrice.appendChild(price)
 
+      const descriptionContainer = document.createElement('div')
+      descriptionContainer.setAttribute('class', 'item__content__description')
+      itemContainer.appendChild(descriptionContainer)
+        const descriptionTitle = document.createElement('p')
+        descriptionTitle.setAttribute('class', 'item__content__description__title')
+        descriptionTitle.textContent = 'Description : '
+        descriptionContainer.appendChild(descriptionTitle)
+        const description = document.createElement('p')
+        description.setAttribute('id', 'description')
+        description.textContent = data.description
+        descriptionContainer.appendChild(description)
+
+      const settingsContainer = document.createElement('div')
+      settingsContainer.setAttribute('class', 'item__content__settings')
+      itemContainer.appendChild(settingsContainer)
+
+        const settingsColor = document.createElement('div')
+        settingsColor.setAttribute('class', 'item__content__settings__color')
+        settingsContainer.appendChild(settingsColor)
+          const colorSelector = document.createElement('label')
+          colorSelector.setAttribute('for', 'color-select')
+          colorSelector.textContent = 'Choisir une couleur : '
+          settingsColor.appendChild(colorSelector)
+          const selectorOptions = document.createElement('select')
+          selectorOptions.setAttribute('name', 'color-select')
+          selectorOptions.setAttribute('id', 'colors')
+          colorSelector.appendChild(selectorOptions)
+            const optionValueExemple = document.createElement('option')
+            optionValueExemple.setAttribute('value', '')
+            optionValueExemple.textContent = '--SVP, choisissez une couleur --'
+            selectorOptions.appendChild(optionValueExemple)
+            //Traitement nécessaire pour récupérer les couleurs depuis l'API, sachant quelles diffèrent pour chaque produit
+            for(let i = 0; i <=3; i++) {  
+              var optionsFromAPI = document.createElement('option')       
+              optionsFromAPI.setAttribute('value', data.colors[i])
+              optionsFromAPI.textContent = data.colors[i]
+              selectorOptions.appendChild(optionsFromAPI)
+              //Attention il faut rajouter une vérification pour pas ajouter une option vide de contenu dans le label
+            }
+            data.colors.forEach ( colors=> {
+            //ça semble être la bonne option, à implémenter!
+              console.log(colors)
+              //Attention il faut rajouter une vérification pour pas ajouter une option vide de contenu dans le label
+            })
 
   } else { // en cas d'erreur retourné par l'API
     const errorMessage = document.createElement('p')
