@@ -77,18 +77,43 @@ request.onload = function showProductInfos () {
             optionValueExemple.textContent = '--SVP, choisissez une couleur --'
             selectorOptions.appendChild(optionValueExemple)
             //Traitement nécessaire pour récupérer les couleurs depuis l'API, sachant quelles diffèrent pour chaque produit
-            for(let i = 0; i <=3; i++) {  
+            /*for(let i = 0; i <=3; i++) {  
               var optionsFromAPI = document.createElement('option')       
               optionsFromAPI.setAttribute('value', data.colors[i])
               optionsFromAPI.textContent = data.colors[i]
               selectorOptions.appendChild(optionsFromAPI)
-              //Attention il faut rajouter une vérification pour pas ajouter une option vide de contenu dans le label
-            }
-            data.colors.forEach ( colors=> {
-            //ça semble être la bonne option, à implémenter!
-              console.log(colors)
-              //Attention il faut rajouter une vérification pour pas ajouter une option vide de contenu dans le label
+            }*/
+            //Traitement nécessaire pour récupérer les couleurs depuis l'API, sachant quelles diffèrent pour chaque produit
+            data.colors.forEach ( colors=> {  
+              var optionsFromAPI = document.createElement('option')       
+              optionsFromAPI.setAttribute('value', colors)
+              optionsFromAPI.textContent = colors
+              selectorOptions.appendChild(optionsFromAPI)
             })
+
+        const settingsQuantity = document.createElement('div')
+        settingsQuantity.setAttribute('class', 'item__content__settings__quantity')
+        settingsContainer.appendChild(settingsQuantity)
+          const quantitySelector = document.createElement('label')
+          quantitySelector.setAttribute('for', 'itemQuantity')
+          quantitySelector.textContent = "Nombre d'article(s) (1-100) : "
+          settingsQuantity.appendChild(quantitySelector)
+          const qSelectorOptions = document.createElement('input')
+          qSelectorOptions.setAttribute('type', 'number')
+          qSelectorOptions.setAttribute('name', 'itemQuantity')
+          qSelectorOptions.setAttribute('min', '1')
+          qSelectorOptions.setAttribute('max', '100')
+          qSelectorOptions.setAttribute('value', '0')
+          qSelectorOptions.setAttribute('id', 'quantity')
+          quantitySelector.appendChild(qSelectorOptions)
+
+      const buttonContainer = document.createElement('div')
+      buttonContainer.setAttribute('class', 'item__content__addButton')
+      itemContainer.appendChild(buttonContainer)
+         const button = document.createElement('button')
+         button.setAttribute('id', 'addToCart')
+         button.textContent = "Ajouter au panier"
+         buttonContainer.appendChild(button)
 
   } else { // en cas d'erreur retourné par l'API
     const errorMessage = document.createElement('p')
