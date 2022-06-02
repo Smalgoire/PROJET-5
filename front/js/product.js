@@ -110,11 +110,15 @@ request.onload = function showProductInfos () {
       const buttonContainer = document.createElement('div')
       buttonContainer.setAttribute('class', 'item__content__addButton')
       itemContainer.appendChild(buttonContainer)
-         const button = document.createElement('button')
-         button.setAttribute('id', 'addToCart')
-         button.textContent = "Ajouter au panier"
-         buttonContainer.appendChild(button)
+        const linkButton = document.createElement('a')
+        linkButton.setAttribute('href', '#')
+        buttonContainer.appendChild(linkButton)
+          const button = document.createElement('button')
+          button.setAttribute('id', 'addToCart')
+          button.textContent = "Ajouter au panier"
+          linkButton.appendChild(button)
 
+        
   } else { // en cas d'erreur retourné par l'API
     const errorMessage = document.createElement('p')
     errorMessage.textContent = `Désolé, problème technique!`
@@ -123,3 +127,4 @@ request.onload = function showProductInfos () {
 }
 
 request.send()
+

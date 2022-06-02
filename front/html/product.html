@@ -110,5 +110,49 @@
       </div>
     </footer>
   <script src="../js/product.js"></script>
+  <script>
+    /*Les données enregistrés dans le localstorage ne sont pas partagées entre les pages, il faut passer les infos de la page produit vers la page panier via l'URL et ensuite s'en servir pour afficher
+les infos produits tout en les enregistrant dans le local storage*/
+
+//Partie récupération des infos nécessaire, à savoir, id / couleur / Nombre d'articles
+
+/*
+setTimeout( function() {
+  var x = document.getElementById('colors')
+  var selectedColor = x.value //Récupération du choix de couleur de l'utilisateur
+  var y = document.getElementById('quantity')
+  var selectedQuantity = y.value //Récupération du nombre de produit voulu par l'utilisateur
+  console.log(id)
+  console.log(selectedColor)
+  console.log(selectedQuantity)
+}, 10000) // Solutionné en mettant un temps d'activation de la fonction pour que cela s'execute après le chargement de tout les élements du DOM
+*/
+
+setTimeout( function () { //ça marche avec setTimeout mais pas avec document.onload/window.onload?
+   document.getElementById('addToCart').onclick = function () {
+    var x = document.getElementById('colors')
+    var selectedColor = x.value //Récupération du choix de couleur de l'utilisateur
+    var y = document.getElementById('quantity')
+    var selectedQuantity = y.value //Récupération du nombre de produit voulu par l'utilisateur
+    console.log(id)
+    console.log(selectedColor)
+    console.log(selectedQuantity)
+   } 
+}, 1000)
+
+/*
+window.onload = function () { //ça marche avec setTimeout mais pas avec document.onload/window.onload?
+   document.getElementById('addToCart').onclick = function () {
+    var x = document.getElementById('colors')
+    var selectedColor = x.value //Récupération du choix de couleur de l'utilisateur
+    var y = document.getElementById('quantity')
+    var selectedQuantity = y.value //Récupération du nombre de produit voulu par l'utilisateur
+    console.log(id)
+    console.log(selectedColor)
+    console.log(selectedQuantity)
+   } 
+} */
+
+  </script>
   </body>
 </html>
