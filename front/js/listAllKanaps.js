@@ -13,7 +13,7 @@ request.onload = function listKanaps () {
     data.forEach(products => { //fonction fléchée
 
       const links = document.createElement('a'); // Document représente n'importe quelle page web chargée dans le navigateur et sert de point d'entrée pour accéder au contenu de la page qui est formé par l'arbre du DOM.
-      var urlID = "./product.html?id="; // ? indique la fin de l'URL et le début des paramètres associés à l'URL
+      var urlID = "./front/html/product.html?id="; // ? indique la fin de l'URL et le début des paramètres associés à l'URL
       urlID += products._id; // On ajoute l'ID retourné par l'API à notre URL
       links.href = urlID;
 
