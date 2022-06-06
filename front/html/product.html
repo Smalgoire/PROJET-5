@@ -110,25 +110,9 @@
       </div>
     </footer>
   <script src="../js/product.js"></script>
-  <script>
-    /*Les données enregistrés dans le localstorage ne sont pas partagées entre les pages, il faut passer les infos de la page produit vers la page panier via l'URL et ensuite s'en servir pour afficher
-les infos produits tout en les enregistrant dans le local storage*/
+  <script> //Partie récupération des infos nécessaire, à savoir, id / couleur / Nombre d'articles, pour les stocker dans le localstorage
 
-//Partie récupération des infos nécessaire, à savoir, id / couleur / Nombre d'articles
-
-/*
-setTimeout( function() {
-  var x = document.getElementById('colors')
-  var selectedColor = x.value //Récupération du choix de couleur de l'utilisateur
-  var y = document.getElementById('quantity')
-  var selectedQuantity = y.value //Récupération du nombre de produit voulu par l'utilisateur
-  console.log(id)
-  console.log(selectedColor)
-  console.log(selectedQuantity)
-}, 10000) // Solutionné en mettant un temps d'activation de la fonction pour que cela s'execute après le chargement de tout les élements du DOM
-*/
-
-setTimeout( function () { //ça marche avec setTimeout mais pas avec document.onload/window.onload?
+setTimeout( function () { //Timeout pour accéder aux éléments html crées dynamiquement une fois qu'ils ont terminé de se charger
    document.getElementById('addToCart').onclick = function () {
     var x = document.getElementById('colors')
     var selectedColor = x.value //Récupération du choix de couleur de l'utilisateur
@@ -137,21 +121,18 @@ setTimeout( function () { //ça marche avec setTimeout mais pas avec document.on
     console.log(id)
     console.log(selectedColor)
     console.log(selectedQuantity)
+    //Création d'un objet pour pouvoir stocker toute les informations
+    var objKanap = { // Pour mémoriser des valeurs complexes, on utilise le format JSON (JavaScript Objet Notation)
+    kanapId : id,
+    kanapColor : selectedColor,
+    KanapQuantity : selectedQuantity
+    }
+
+    var objTransform = JSON.stringify(objKanap); //on sérialise (ou linéarise) l’objet avec la syntaxe JSON.stringify().Cette opération transforme l’objet en une chaîne de caractères.
+    localStorage.setItem("kanapProduct", objTransform)
+  
    } 
 }, 1000)
-
-/*
-window.onload = function () { //ça marche avec setTimeout mais pas avec document.onload/window.onload?
-   document.getElementById('addToCart').onclick = function () {
-    var x = document.getElementById('colors')
-    var selectedColor = x.value //Récupération du choix de couleur de l'utilisateur
-    var y = document.getElementById('quantity')
-    var selectedQuantity = y.value //Récupération du nombre de produit voulu par l'utilisateur
-    console.log(id)
-    console.log(selectedColor)
-    console.log(selectedQuantity)
-   } 
-} */
 
   </script>
   </body>
