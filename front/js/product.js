@@ -128,3 +128,44 @@ request.onload = function showProductInfos () {
 
 request.send()
 
+
+//Partie récupération des infos nécessaire, à savoir, id / couleur / Nombre d'articles, pour les stocker dans le localstorage
+var lsKey = 0 //variable permettant de génerer des clés différentes dans le localstorage
+setTimeout( function () { //Timeout pour accéder aux éléments html crées dynamiquement une fois qu'ils ont terminé de se charger
+ document.getElementById('addToCart').onclick = function addToCart () {
+  var x = document.getElementById('colors')
+  var selectedColor = x.value //Récupération du choix de couleur de l'utilisateur
+  var y = document.getElementById('quantity')
+  var selectedQuantity = y.value //Récupération du nombre de produit voulu par l'utilisateur
+
+  //Création d'un objet pour pouvoir stocker toute les informations
+  var objKanap = { // Pour mémoriser des valeurs complexes, on utilise le format JSON (JavaScript Objet Notation)
+  kanapId : id,
+  kanapColor : selectedColor,
+  KanapQuantity : selectedQuantity
+  }
+
+  if (lsKey == 0) {
+  var objTransform = JSON.stringify(objKanap) //on sérialise (ou linéarise) l’objet avec la syntaxe JSON.stringify().Cette opération transforme l’objet en une chaîne de caractères.
+  localStorage.setItem(lsKey, objTransform)
+  lsKey++ //à chaque click sur Ajouter au panier, une clé différente dans le localstorage
+  }
+  else {
+      //checker et comparer tout les items du localstorage
+      for ( var i = 0, len = localStorage.length; i < len; i++ ) {
+        var getKanap = localStorage.getItem( localStorage.key( i ) )
+        var kanapCheck = JSON.parse(getKanap) 
+        
+        if (id == kanapCheck.kanapId && selectedColor == kanapCheck.kanapColor) { //Pour éviter d'ajouter plusieurs fois le même produit dans localstorage
+            console.log('Already Exists')
+        }
+
+        else {
+          var objTransform = JSON.stringify(objKanap) //on sérialise (ou linéarise) l’objet avec la syntaxe JSON.stringify().Cette opération transforme l’objet en une chaîne de caractères.
+          lsKey++ //à chaque click sur Ajouter au panier, une clé différente dans le localstorage
+          localStorage.setItem(lsKey, objTransform)
+        }    
+      }
+    }
+ } 
+}, 1000)
