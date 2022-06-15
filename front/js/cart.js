@@ -32,10 +32,13 @@ var lsKey = 0 //variable permettant de génerer des clés différentes dans le l
       localStorage.setItem(lsKey, objTransform)
   */
   
-  //Récupération d'un produit depuis le localStorage
-  var objTransform = localStorage.getItem("1")
-  var objKanap = JSON.parse(objTransform)
+  //Récupération des produits depuis le localStorage
 
+for ( var i = 0, len = localStorage.length; i < len; i++ ) {
+
+  var objTransform = localStorage.getItem( localStorage.key( i ) )
+  var objKanap = JSON.parse(objTransform) 
+ 
   var id = objKanap.kanapId
   console.log(id)
 
@@ -83,16 +86,43 @@ request.onload = function showProductInfos () {
           color.textContent = objKanap.kanapColor
           contentDescription.appendChild(color)
           const price = document.createElement('p')
-          price.textContent= data.price + ' €'
+          price.textContent = data.price + ' €'
           contentDescription.appendChild(price)
+
+        const contentSettings = document.createElement('div')
+        contentSettings.setAttribute('class', 'cart__item__content__settings')
+        itemContainer.appendChild(contentSettings)
+          const quantityContainer = document.createElement('div')
+          contentSettings.setAttribute('class', 'cart__item__content__settings__quantity')
+          contentSettings.appendChild(quantityContainer)
+            const quantity = document.createElement('p')
+            quantity.textContent = 'Qté : '
+            quantityContainer.appendChild(quantity)
+            const selector = document.createElement('input')
+            selector.setAttribute('type', 'number')
+            selector.setAttribute('class', 'itemQuantity')
+            selector.setAttribute('name', 'itemQuantity')
+            selector.setAttribute('min', '1')
+            selector.setAttribute('max', '100')
+            selector.setAttribute('value', objKanap.KanapQuantity)
+            contentSettings.appendChild(selector)
+
+          const deleteContainer = document.createElement('div')
+          deleteContainer.setAttribute('class', 'cart__item__content__settings__delete')
+          contentSettings.appendChild(deleteContainer)
+            const deleteItem = document.createElement('p')
+            deleteItem.setAttribute('class', 'deleteItem')
+            deleteItem.textContent = 'Supprimer'
+            deleteContainer.appendChild(deleteItem)
 
         
   } else { // en cas d'erreur retourné par l'API
     const errorMessage = document.createElement('p')
     errorMessage.textContent = `Désolé, problème technique!`
-    listProducts.appendChild(errorMessage)
+    cartProducts.appendChild(errorMessage)
   }
 }
 
 request.send()
 
+}
