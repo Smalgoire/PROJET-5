@@ -146,9 +146,9 @@ setTimeout( function () { //Timeout pour accéder aux éléments html crées dyn
   }
 
   if (lsKey == 0) {
+  lsKey++ //à chaque click sur Ajouter au panier, une clé différente dans le localstorage
   var objTransform = JSON.stringify(objKanap) //on sérialise (ou linéarise) l’objet avec la syntaxe JSON.stringify().Cette opération transforme l’objet en une chaîne de caractères.
   localStorage.setItem(lsKey, objTransform)
-  lsKey++ //à chaque click sur Ajouter au panier, une clé différente dans le localstorage
   }
   else {
       //checker et comparer tout les items du localstorage
