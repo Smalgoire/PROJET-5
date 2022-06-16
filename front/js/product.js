@@ -142,7 +142,7 @@ setTimeout( function () { //Timeout pour accéder aux éléments html crées dyn
   var objKanap = { // Pour mémoriser des valeurs complexes, on utilise le format JSON (JavaScript Objet Notation)
   kanapId : id,
   kanapColor : selectedColor,
-  KanapQuantity : selectedQuantity
+  kanapQuantity : selectedQuantity
   }
 
   if (lsKey == 0) {
