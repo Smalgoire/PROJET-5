@@ -40,7 +40,7 @@ for ( var i = 0, len = localStorage.length; i < len; i++ ) {
   var objKanap = JSON.parse(objTransform) 
  
   var id = objKanap.kanapId
-  console.log(id)
+  //console.log(id)
 
 const cartProducts = document.querySelector('.cart') 
 
@@ -103,6 +103,7 @@ request.onload = function showProductInfos () {
             const selector = document.createElement('input')
             selector.setAttribute('type', 'number')
             selector.setAttribute('class', 'itemQuantity')
+            selector.setAttribute('data-id', id) // Pour pouvoir utiliser dataset par la suite
             selector.setAttribute('name', 'itemQuantity')
             selector.setAttribute('min', '1')
             selector.setAttribute('max', '100')
@@ -127,4 +128,27 @@ request.onload = function showProductInfos () {
 
 request.send()
 
+}
+
+
+//Gestion changement quantité produit
+var input = document.getElementsByClassName('itemQuantity') //Retourne un Tableau avec tout les élement correspondants à la classe
+for (var i = 0; i < input.length; i++) {
+  input[i].addEventListener('change', function(){
+
+    console.log('change detected')
+
+    //Ici on recupère notre id produit pour savoir précisément quel objet du localstorage on va modifier
+    var input = document.getElementsByClassName('itemQuantity')
+    for (var i = 0; i < input.length; i++) {
+    var getDataId = input[i].dataset.id
+    console.log(getDataId)
+   }
+    
+
+    /*
+    var objTransform = JSON.stringify(objKanap)
+    localStorage.setItem(lsKey, objTransform) */
+
+  });
 }
