@@ -30,7 +30,7 @@ var lsKey = 0 //variable permettant de génerer des clés différentes dans le l
       var objTransform = JSON.stringify(objKanap3) //on sérialise (ou linéarise) l’objet avec la syntaxe JSON.stringify().Cette opération transforme l’objet en une chaîne de caractères.
       lsKey++ //à chaque click sur Ajouter au panier, une clé différente dans le localstorage
       localStorage.setItem(lsKey, objTransform)
-*/  
+*/
   
   //Récupération des produits depuis le localStorage
 
@@ -103,7 +103,7 @@ request.onload = function showProductInfos () {
             const selector = document.createElement('input')
             selector.setAttribute('type', 'number')
             selector.setAttribute('class', 'itemQuantity')
-            selector.setAttribute('data-id', id) // Pour pouvoir utiliser dataset par la suite
+            selector.setAttribute('data-lskey', localStorage.key( i )) // Pour pouvoir utiliser dataset par la suite
             selector.setAttribute('name', 'itemQuantity')
             selector.setAttribute('min', '1')
             selector.setAttribute('max', '100')
@@ -130,25 +130,26 @@ request.send()
 
 }
 
-
 //Gestion changement quantité produit
 var input = document.getElementsByClassName('itemQuantity') //Retourne un Tableau avec tout les élement correspondants à la classe
 for (var i = 0; i < input.length; i++) {
-  input[i].addEventListener('change', function(){
+  input[i].addEventListener('change', function(){ //Execution du code lors d'un changement sur le selecteur de quantité
 
     console.log('change detected')
 
     //Ici on recupère notre id produit pour savoir précisément quel objet du localstorage on va modifier
     var input = document.getElementsByClassName('itemQuantity')
     for (var i = 0; i < input.length; i++) {
-    var getDataId = input[i].dataset.id
-    console.log(getDataId)
+    var getDataKey = input[i].dataset.lskey //via la propriété dataset on peut faire correspondre quel input correspond à quel objet du localstorage via sa clé
+
+    var getKanap = localStorage.getItem( localStorage.key( i ) )
+    var kanapChange1 = JSON.parse(getKanap)
+    kanapChange1.kanapQuantity = input[i].value // On modifie la quantité en fonction de l'entrée utilisateur
+
+    var kanapChange2 = JSON.stringify(kanapChange1)
+    localStorage.setItem(getDataKey, kanapChange2) // On enregistre l'objet avec ses nouvelles valeurs dans localstorage
+
    }
     
-
-    /*
-    var objTransform = JSON.stringify(objKanap)
-    localStorage.setItem(lsKey, objTransform) */
-
   });
 }
